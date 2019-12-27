@@ -18,12 +18,19 @@ class StateMachine:
         if callable(currentState.loop): currentState.loop()
 
     # This method should be called continously in a loop
+    # checks if each transition's trigger is true. If so, checks if current
+    # state is in list of source states. if so, change state to corresponding
+    # target state
     def checkTransitions(self):
         for transition in self.transitions:
             currentTransition = self.transitions[transition]
-            if currentTransition.checkTrigger() \
-            and self.currentStateName == currentTransition.sourceState:
-                self.changeState(currentTransition.targetState)
+            if currentTransition.checkTrigger():
+                if self.currentStateName in currentTransition.sourceStates:
+                    index = currentTransition.sourceStates(self.currentStateName)
+                    self.changeState(currentTransition.targetStates[index])
+            # if currentTransition.checkTrigger() \
+            # and self.currentStateName == currentTransition.sourceState:
+            #     self.changeState(currentTransition.targetState)
 
     # call leave function, if any, switch to new State, call enter function, if any
     def changeState(self,newState):
@@ -51,13 +58,15 @@ class State:
 class Transition:
     # name: str name of Transition
     # trigger: func to trigger transition. Should return Bool
-    # source: str equal to key of source state
-    # target: str equal to key of targer state
-    def __init__(self, name,trigger,source,target):
+    # sources: list of str equal to key of source states
+    # targets: list of str equal to key of target states
+    # sources and targets should be lists of equal size. elements that share an
+    # index represent a source-destination pair
+    def __init__(self, name,trigger,sources,targets):
         self.name = name
         self.getTrigger = trigger
-        self.sourceState = source
-        self.targetState = target
+        self.sourceStates = sources
+        self.targetStates = targets
 
     def checkTrigger(self):
         return self.getTrigger()
