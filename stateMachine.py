@@ -1,11 +1,15 @@
 class StateMachine:
-    # states: dict containing all possible states
-    # transistions: dict containing all possible transitions
+    # states: list containing all possible states
+    # transistions: list containing all possible transitions
     # initialstate: str equal to key of starting state
     def __init__(self,states,transitions,initialState):
         self.currentStateName = initialState
-        self.states = states
-        self.transitions = transitions
+        self.states = {}
+        for state in states:
+            self.states[state.name] = state
+        self.transitions = {}
+        for transistion in transitions:
+            self.transitions[transistion.name] = transistion
     
     def __call__(self):
         self.checkTransitions()
@@ -25,25 +29,19 @@ class StateMachine:
         for transition in self.transitions:
             currentTransition = self.transitions[transition]
             if currentTransition.checkTrigger():
-                # print(self.currentStateName)
-                # print(currentTransition.sourceStates)
-                for item in currentTransition.sourceStates:
-                    print(item.name)
-                    # index = currentTransition.sourceStates(self.currentStateName)
-                    # self.changeState(currentTransition.targetStates[index])
-            # if currentTransition.checkTrigger() \
-            # and self.currentStateName == currentTransition.sourceState:
-            #     self.changeState(currentTransition.targetState)
+                for index,source in enumerate(currentTransition.sourceStates):
+                    if self.currentStateName == source.name:
+                        self.changeState(currentTransition.targetStates[index])
 
     # call leave function, if any, switch to new State, call enter function, if any
     def changeState(self,newState):
-        endingState = self.states[self.currentStateName]
-        if callable(endingState.leave): endingState.leave()
+        oldState = self.states[self.currentStateName]
+        if callable(oldState.leave): oldState.leave()
         
-        self.currentStateName = newState
+        self.currentStateName = newState.name
         
-        startingState = self.states[self.currentStateName]
-        if callable(startingState.enter): startingState.enter()
+        newState = self.states[self.currentStateName]
+        if callable(newState.enter): newState.enter()
 
 
 class State:

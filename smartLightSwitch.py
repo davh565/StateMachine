@@ -24,15 +24,15 @@ RemoteOn = State("RemoteOn",None,remoteOn,None)
 DimUp = State("DimUp",None,dimUp,None)
 DimDown = State("DimDown",None,dimDown,None)
 
-statesDict = {
-    "LocalOff": LocalOff,
-    "LocalOn": LocalOn,
-    "Fail": Fail,
-    "RemoteOff": RemoteOff,
-    "RemoteOn": RemoteOn,
-    "DimUp": DimUp,
-    "DimDown": DimDown,
-}
+statesList = [
+    LocalOff,
+    LocalOn,
+    Fail,
+    RemoteOff,
+    RemoteOn,
+    DimUp,
+    DimDown,
+]
 
 LONGHOLD_AND_ONLINE = Transition(
     "Longhold&&Online",
@@ -85,20 +85,20 @@ NOT_ONLINE = Transition(
     [DimUp,DimDown],
     [LocalOn,LocalOn])
 
-transitionsDict = {
-    "Longhold&&Online": LONGHOLD_AND_ONLINE,
-    "Longhold&&!Online": LONGHOLD_AND_NOT_ONLINE,
-    "Longhold||!Online": LONGHOLD_OR_NOT_ONLINE,
-    "Press": PRESS,
-    "Release": RELEASE,
-    "PrevState==LocalOn": PREVSTATE_LOCALON,
-    "PrevState==LocalOff": PREVSTATE_LOCALOFF,
-    "PrevState==DimUp&&Hold": PREVSTATE_DIMUP_AND_HOLD,
-    "PrevState!=DimUp&&Hold": PREVSTATE_NOT_DIMUP_AND_HOLD,
-    "!Online": NOT_ONLINE,
-}
+transitionsList = [
+    LONGHOLD_AND_ONLINE,
+    LONGHOLD_AND_NOT_ONLINE,
+    LONGHOLD_OR_NOT_ONLINE,
+    PRESS,
+    RELEASE,
+    PREVSTATE_LOCALON,
+    PREVSTATE_LOCALOFF,
+    PREVSTATE_DIMUP_AND_HOLD,
+    PREVSTATE_NOT_DIMUP_AND_HOLD,
+    NOT_ONLINE,
+]
 
-sm = StateMachine(statesDict,transitionsDict,"LocalOff")
+sm = StateMachine(statesList,transitionsList,"LocalOff")
 
 while True:
     sm.checkTransitions()
