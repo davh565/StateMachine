@@ -25,9 +25,12 @@ class StateMachine:
         for transition in self.transitions:
             currentTransition = self.transitions[transition]
             if currentTransition.checkTrigger():
-                if self.currentStateName in currentTransition.sourceStates:
-                    index = currentTransition.sourceStates(self.currentStateName)
-                    self.changeState(currentTransition.targetStates[index])
+                # print(self.currentStateName)
+                # print(currentTransition.sourceStates)
+                for item in currentTransition.sourceStates:
+                    print(item.name)
+                    # index = currentTransition.sourceStates(self.currentStateName)
+                    # self.changeState(currentTransition.targetStates[index])
             # if currentTransition.checkTrigger() \
             # and self.currentStateName == currentTransition.sourceState:
             #     self.changeState(currentTransition.targetState)
