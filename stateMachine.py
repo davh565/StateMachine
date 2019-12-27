@@ -59,8 +59,8 @@ class State:
 class Transition:
     # name: str name of Transition
     # trigger: func to trigger transition. Should return Bool
-    # sources: list of str equal to key of source states
-    # targets: list of str equal to key of target states
+    # sources: list of source State objects
+    # targets: list of target State objects
     # sources and targets should be lists of equal size. elements that share an
     # index represent a source-destination pair
     def __init__(self, name,trigger,sources,targets):

@@ -10,12 +10,13 @@ def fail():
 def remoteOff():
     print("This is the RemoteOff loop")
 def remoteOn():
-    print("This is the RemoteOff loop")
+    print("This is the RemoteOn loop")
 def dimUp():
     print("This is the DimUp loop")
 def dimDown():
     print("This is the DimDown loop")
 
+# State = State("Name",loopFunction,enterFunction,leaveFunction)
 LocalOff = State("LocalOff",None,localOff,None)
 LocalOn = State("LocalOn",None,localOn,None)
 Fail = State("Fail",None,fail,None)
@@ -34,6 +35,11 @@ statesList = [
     DimDown,
 ]
 
+# NAME = Transition(
+#     triggerFunction
+#     [SourceStates]
+#     [TargetStates]
+# )
 LONGHOLD_AND_ONLINE = Transition(
     "Longhold&&Online",
     trig1,
