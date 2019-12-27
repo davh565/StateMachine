@@ -32,6 +32,7 @@ class StateMachine:
                 for index,source in enumerate(currentTransition.sourceStates):
                     if self.currentStateName == source.name:
                         self.changeState(currentTransition.targetStates[index])
+                        break
 
     # call leave function, if any, switch to new State, call enter function, if any
     def changeState(self,newState):
