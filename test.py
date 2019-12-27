@@ -166,6 +166,7 @@ transitionsDict = {
     "Dim Release" : dim_mQTTOn,
     "Dim Drop" : dim_connectOn,
     }
+    gi
 
 ################ STATE MACHINE
 sm = StateMachine(statesDict,transitionsDict,"Relay Off")
