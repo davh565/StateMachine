@@ -3,6 +3,7 @@ class StateMachine:
     # transistions: list containing all possible transitions
     # initialstate: str equal to key of starting state
     def __init__(self,states,transitions,initialState):
+        self.oldStateName = "None"
         self.currentStateName = initialState
         self.states = {}
         for state in states:
@@ -38,7 +39,7 @@ class StateMachine:
     def changeState(self,newState):
         oldState = self.states[self.currentStateName]
         if callable(oldState.leave): oldState.leave()
-        
+        self.oldStateName = oldState.name
         self.currentStateName = newState.name
         
         newState = self.states[self.currentStateName]

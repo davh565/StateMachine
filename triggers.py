@@ -1,5 +1,6 @@
 import keyboard as kb
 from time import sleep
+from smartLightSwitch import sm
 
 def trig1():
     if kb.is_pressed('1'):
@@ -41,3 +42,30 @@ def trig0():
     if kb.is_pressed('0'):
         sleep(0.25)
         return True
+
+
+def isPressed():
+    return kb.is_pressed('0')
+def isHeld():
+    return True
+def isLongHeld():
+    return True
+def isOnline():
+    return True
+def prevStateIsLocalOff():
+    if sm.oldStateName == "LocalOff":
+        return True
+    else:
+        return False
+def prevStateIsLocalOn():
+    if sm.oldStateName == "LocalOn":
+        return True
+    else:
+        return False
+def prevStateDimUp():
+    if sm.oldStateName == "DimUp":
+        return True
+    else:
+        return False
+def isReleased():
+    return not kb.is_pressed('0')

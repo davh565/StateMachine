@@ -1,5 +1,5 @@
 from stateMachine import *
-from testIO import *
+from triggers import *
 
 def localOff():
     print("This is the LocalOff loop")
