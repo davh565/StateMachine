@@ -109,4 +109,3 @@ sm = StateMachine(statesList,transitionsList,"LocalOff")
 while True:
     sm.checkTransitions()
     sm.run()
-    # print(trig1())
